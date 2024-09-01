@@ -1,24 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-interface markdownNoteFrontmatter {
-  image: string;
-  title: string;
-  date: string;
-}
-
-const markdownNotes = await Astro.glob<markdownNoteFrontmatter>('../content/*.md');
-
-const notes = markdownNotes.map((note) => ({
-  slug: note.file.split("/").pop()?.split(".")[0],
-  ...note.frontmatter
-}))
+const notes = await getCollection("notes");
 ---
 
 <Layout title="Pufferbommy | Notes">
   <main>
     <div class="notes">
-      {notes.map(({slug, image, title, date}) => (
+      {notes.map(({slug, data: {image, title, date}}) => (
         <a
         href={`/notes/${slug}`}
         class="card"

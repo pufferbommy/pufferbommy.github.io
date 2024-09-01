@@ -1,26 +1,35 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-interface MarkdownNoteFrontmatter {
-  image: string;
-  title: string;
-  date: string;
+export async function getStaticPaths () {
+  const blogEntries = await getCollection('notes');
+  return blogEntries.map((entry) => ({
+    params: {
+      slug: entry.slug,
+    },
+    props: {
+      entry
+    }
+  }))
 }
 
-const markdownNotes = await Astro.glob<MarkdownNoteFrontmatter>('../../content/*.md');
-const note = markdownNotes.find((note) => note.file.split("/").pop()?.split(".")[0] === Astro.params.slug);
-if (!note) {
+const { entry } = Astro.props;
+
+if (!entry) {
   return Astro.redirect("/notes");
 }
+
+const { Content } = await entry.render();
 ---
 
-<Layout title={`Pufferbommy | ${note.frontmatter.title}`}>
-  <main>
-    <h1 class="title">{note.frontmatter.title}</h1>
+<Layout title={`Pufferbommy | ${entry.data.title}`}>
+  <main>    
+    <h1 class="title">{entry.data.title}</h1>
     <p>
-      <img src={note.frontmatter.image} alt={note.frontmatter.title} />
+      <img src={entry.data.image} alt={entry.data.title} />
     </p>
-    <note.Content />
+    <Content />
   </main>
 </Layout>
 
