@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Category {
+  name: string;
+  value: string;
+}
+
+
+const categories: Category[] = [
+  {
+    name: "All",
+    value: "all",
+  },
+  {
+    name: "Work",
+    value: "work",
+  },
+  {
+    name: "Personal",
+    value: "personal",
+  },
+]
+const activeCategory = Astro.url.searchParams.get("category") || "all";
+
+interface Project {
+  image: string;
+  name: string;
+  category: string;
+}
+
+const projects: Project[] = [
+  {
+    image: "/images/projects/graduate-project.jpg",
+    name: "Graduate Project",
+    category: "work",
+  },
+  {
+    image: "/images/projects/cat-maps.jpg",
+    name: "Cat Maps",
+    category: "personal",
+  },
+  {
+    image: "/images/projects/nichakarn-port.jpg",
+    name: "Nichakarn Soontornsuteewong Portfolio",
+    category: "work",
+  },
+  {
+    image: "/images/projects/quarantine-checker.jpg",
+    name: "Quarantine Checker",
+    category: "personal",
+  },
+].filter((project) => activeCategory === "all" || project.category === activeCategory);
+const isActiveCategory = (category: Category) => category.value === activeCategory;
+---
+
+<Layout title="Pufferbommy | Projects">
+  <main>
+    <div class="categories">
+      {categories.map((category) => (
+        <a href={`/projects?category=${category.value}`} class={isActiveCategory(category) ? "button" : "button button--outline"}>{category.name}</a>
+      ))}
+    </div>
+    <div class="projects">
+      {projects.map(({image, name}) => (
+        <div class="card">
+          <div class="image">
+            <img src={image} alt={name} />
+          </div>
+          <div class="content">
+            <h2 class="name">{name}</h2>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+	.categories {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 2rem;
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    .categories {
+      flex-direction: column;
+    }
+
+    .projects {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

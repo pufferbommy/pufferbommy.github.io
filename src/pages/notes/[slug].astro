@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+interface MarkdownNoteFrontmatter {
+  image: string;
+  title: string;
+  date: string;
+}
+
+const markdownNotes = await Astro.glob<MarkdownNoteFrontmatter>('../../content/*.md');
+const note = markdownNotes.find((note) => note.file.split("/").pop()?.split(".")[0] === Astro.params.slug);
+if (!note) {
+  return Astro.redirect("/notes");
+}
+---
+
+<Layout title={`Pufferbommy | ${note.frontmatter.title}`}>
+  <main>
+    <h1 class="title">{note.frontmatter.title}</h1>
+    <p>
+      <img src={note.frontmatter.image} alt={note.frontmatter.title} />
+    </p>
+    <note.Content />
+  </main>
+</Layout>
+
+<style is:global>
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding-block: 2rem;
+  }
+
+  .title {
+    margin-bottom: 2rem;
+  }
+
+  p {
+    display: flex;
+    margin-top: 2rem;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  p:has(> img) + p:has(> img) {
+    margin-top: 1rem;
+  }
+
+  p > img {
+    box-shadow: 0 0 2rem hsla(var(--primary), 0.125);
+    border-radius: 0.5rem;
+  }
+</style>
