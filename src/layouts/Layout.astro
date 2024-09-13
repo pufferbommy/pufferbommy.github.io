@@ -6,12 +6,10 @@ interface Props {
 }
 
 const { title } = Astro.props;
-
-Astro.cookies.get("theme")
 ---
 
 <!doctype html>
-<html data-theme="light" data-menu-open="false" data-no-transition lang="en">
+<html data-menu-open="false" lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta
@@ -46,22 +44,15 @@ Astro.cookies.get("theme")
     --font-sm: calc(var(--font-base) / var(--font-scale));
     --font-lg: calc(var(--font-base) * var(--font-scale));
     --font-xl: calc(var(--font-lg) * var(--font-scale));
-  }
-
-  [data-theme="light"] {
     --bg: 108, 40%, 99%;
     --primary: 108, 40%, 39%;
     --secondary: 108 20% 39%;
   }
 
-  [data-theme="dark"] {
+  html.dark {
     --bg: 108, 40%, 1%;
     --primary: 108, 40%, 93%;
     --secondary: 240 3.8% 46.1%;
-  }
-
-  [data-no-transition] * {
-    transition: none !important;
   }
 
   body {
@@ -300,38 +291,38 @@ Astro.cookies.get("theme")
     display: none;
   }
 
-  #toggle-theme-button .moon {
+  #toggle-mode-button .moon {
     display: block;
   }
 
-  #toggle-theme-button .sun {
+  #toggle-mode-button .sun {
     display: none;
   }
 
-  [data-theme="dark"] #toggle-theme-button .moon {
+  [data-theme="dark"] #toggle-mode-button .moon {
     display: none;
   }
 
-  [data-theme="dark"] #toggle-theme-button .sun {
+  [data-theme="dark"] #toggle-mode-button .sun {
     display: block;
   }
 
-  #toggle-theme-button:hover {
+  #toggle-mode-button:hover {
     transform: scale(1.1);
   }
 
-  #toggle-theme-button:active {
+  #toggle-mode-button:active {
     transform: scale(0.9);
   }
 
-  #toggle-theme-button .happy,
-  #toggle-theme-button:hover .sad,
-  #toggle-theme-button:hover:active .happy {
+  #toggle-mode-button .happy,
+  #toggle-mode-button:hover .sad,
+  #toggle-mode-button:hover:active .happy {
     opacity: 0;
   }
 
-  #toggle-theme-button:hover .happy,
-  #toggle-theme-button:active .sad {
+  #toggle-mode-button:hover .happy,
+  #toggle-mode-button:active .sad {
     opacity: 1;
   }
 
@@ -395,6 +386,35 @@ Astro.cookies.get("theme")
     }
   }
 </style>
+
+<script is:inline>
+  const toggleModeButton = document.getElementById("toggle-mode-button");
+
+  // Initialize dark mode
+  const isDarkMode = getIsDarkMode();
+  setMode(isDarkMode);
+
+  // Add event listener
+  toggleModeButton.addEventListener("click", handleToggleModeClick);
+
+  function getIsDarkMode() {
+    const storedMode = localStorage.getItem("isDarkMode");
+    if (storedMode === null) {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return storedMode === "true";
+  }
+
+  function setMode(isDarkMode) {
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    localStorage.setItem("isDarkMode", isDarkMode);
+  }
+
+  function handleToggleModeClick() {
+    const currentMode = getIsDarkMode();
+    setMode(!currentMode);
+  }
+</script>
 
 <script>
   // start canvas
@@ -472,10 +492,6 @@ Astro.cookies.get("theme")
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
-
-  function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
   // end canvas
 
   // start header
@@ -491,33 +507,4 @@ Astro.cookies.get("theme")
     document.documentElement.dataset.menuOpen = newMenuOpen.toString();
   }
   // end header
-
-  // start theme
-  const toggleThemeButton = document.getElementById("toggle-theme-button");
-
-  const localTheme = localStorage.getItem("theme");
-  if (localTheme) document.documentElement.dataset.theme = localTheme;
-
-  if(toggleThemeButton) {
-    toggleThemeButton.addEventListener("click", toggleTheme);
-  }
-
-  function toggleTheme() {
-    const currentTheme = document.documentElement.dataset.theme;
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-  }
-
-  function setTheme(theme: string) {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
-    clearCanvas();
-  }
-  // end theme
-
-  window.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-      delete document.documentElement.dataset.noTransition;
-    });
-  });
 </script>
