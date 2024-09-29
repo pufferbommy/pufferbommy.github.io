@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Pufferbommy | Baby Three">
+	<main>
+    <div class="baby-three">
+      <div class="left-eye eye">
+        <div class="pupil" />
+      </div>
+      <div class="right-eye eye">
+        <div class="pupil" />
+      </div>
+      <img src="/images/projects/baby-three.png" alt="baby three" />
+    </div>
+	</main>
+</Layout>
+
+<style>
+  main {
+		flex: 1;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	}
+  
+  .baby-three {
+    max-width: 600px;
+    position: relative;
+  }
+
+  img {
+    width: 100%;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .eye {
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: white;
+  }
+
+  .left-eye {
+    height: 8.9%;
+    width: 12.1%;
+    left: 32.7%;
+    top: 31.4%;
+  }
+
+  .right-eye {
+    height: 9.25%;
+    right: 30.4%;
+    width: 13.1%;
+    top: 31.6%;
+  }
+
+  .pupil {
+    background-color: black;
+    width: 80%;
+    aspect-ratio: 1;
+    border-radius: inherit;
+  }
+</style>
+
+<script>
+  document.addEventListener("mousemove", (e) => {
+    const mouseX = e.clientX
+    const mouseY = e.clientY
+    moveEyes(mouseX, mouseY)
+  })
+
+  function moveEyes(mouseX: number, mouseY: number) {    
+    const eyes = document.querySelectorAll<HTMLElement>('.eye')
+    for(const eye of eyes) {
+      const {left, width, top, height} = eye.getBoundingClientRect()
+      const x = left + width / 2
+      const y = top + height / 2
+      const angleDeg = angle(mouseX, mouseY, x, y)
+      eye.style.transform = `rotate(${angleDeg}deg)`
+    }
+  }
+
+  function angle(cx: number, cy: number, ex: number, ey: number) {
+    const dy = ey - cy
+    const dx = ex - cx
+    const rad = Math.atan2(dy, dx)
+    const deg = rad * 180 / Math.PI - 30
+    return deg
+  }
+</script>
