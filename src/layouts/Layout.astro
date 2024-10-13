@@ -1,5 +1,5 @@
 ---
-import Header from '../components/Header.astro'
+import "the-new-css-reset/css/reset.css";
 
 interface Props {
 	title: string;
@@ -9,502 +9,101 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html data-menu-open="false" lang="en">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta
 		name="description"
-		content="Hi, I am Panyawat (Bom) Kaedpol. A frontend developer based in Bangkok, Thailand. I make digital things that are easy to use and look good."
+		content="Hi, I'm Panyawat (Bom) Kaedpol. A frontend developer in Bangkok, Thailand. Crafting user-friendly, interactive web experiences."
     />
     <meta name="author" content="Panyawat Kaedpol" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
-		<Header />
-		<slot />
+    <header>
+      <a href="/">
+        Pufferbommy
+      </a>
+    </header>
+    <slot />
 	</body>
 </html>
 <style is:global>
-  @font-face {
-    font-family: Poly;
-    src: url("/fonts/Poly-Regular.ttf") format("truetype");
-    font-style: normal;
-    font-weight: 400;
-  }
-
   :root {
-    --muted: hsla(var(--primary), 0.125);
-    --transition-duration: 0.3s;
-    --grid-size: 10rem;
-    --font-scale: 1.25;
+    --font-scale: 1.5;
     --font-base: 1.5rem;
     --font-sm: calc(var(--font-base) / var(--font-scale));
     --font-lg: calc(var(--font-base) * var(--font-scale));
     --font-xl: calc(var(--font-lg) * var(--font-scale));
-    --bg: 108, 40%, 99%;
-    --primary: 108, 40%, 39%;
-    --secondary: 108 20% 39%;
-  }
-
-  html.dark {
+    --font-2xl: calc(var(--font-xl) * var(--font-scale));
     --bg: 108, 40%, 1%;
     --primary: 108, 40%, 93%;
-    --secondary: 240 3.8% 46.1%;
   }
 
   body {
     min-height: 100svh;
     margin: 0;
-    padding: 2rem;
     background-color: hsl(var(--bg));
-    transition:
-      background-color var(--transition-duration),
-      color var(--transition-duration);
     font-size: var(--font-base);
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
     color: hsl(var(--primary));
-    font-family: "Poly", serif;
+    font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
-    background-image: linear-gradient(to left, var(--muted) 1px, transparent 0),
-      linear-gradient(to bottom, var(--muted) 1px, transparent 0);
-    background-size: var(--grid-size) var(--grid-size);
-    background-position: center;
-  }
-
-  [data-menu-open="true"] body {
-    overflow: hidden;
-  }
-
-  h1,
-  h2,
-  p {
-    font-weight: 400;
-    margin: 0;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  button:focus-visible,
-  a:focus-visible {
-    outline: 2px solid hsl(var(--primary), 0.5);
-  }
-
-  svg {
-    width: 100%;
-  }
-
-  path {
-    stroke: hsl(var(--primary));
-  }
-
-  .card {
-    border: 1px solid hsla(var(--primary), var(--opacity, 0.5));
-    background-color: hsla(var(--primary), 0.0625);
-    position: relative;
-    transition: border var(--transition-duration);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    display: block;
-  }
-
-  .card:hover {
-    --opacity: 1;
-  }
-
-  .card .content {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.5rem;
-  }
-
-  .card .content .date {
-    color: hsl(var(--secondary));
-    font-size: var(--font-sm);
-  }
-
-  .card .image {
-    display: flex;
-    overflow: hidden;
-    aspect-ratio: 1;
-  }
-
-  .card:hover .image img {
-    transform: scale(1.1) rotate(-2deg);
-  }
-
-  .card .image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition-duration);
-  }
-
-  .card .content .name {
-    font-size: var(--font-base);
-    word-break: break-all;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  .button {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--bg));
-    padding: 1rem 2rem;
-    border-radius: 999px;
-    transition:
-      background-color var(--transition-duration),
-      color var(--transition-duration),
-      transform var(--transition-duration),
-      border-color var(--transition-duration);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    font-size: inherit;
-    font-family: inherit;
-    border: 1px solid transparent;
-    position: relative;
-    cursor: pointer; /* for tag a */
-  }
-
-  .button:hover {
-    background-color: hsla(var(--primary), 0.9);
-  }
-
-  .button--outline {
-    background-color: transparent;
-    border: 1px solid hsla(var(--primary), 0.5);
-    color: hsl(var(--primary));
-  }
-
-  .button--outline:hover {
-    background-color: hsla(var(--primary), 0.05);
-    border-color: hsl(var(--primary));
-  }
-
-  .button--icon {
-    background-color: transparent;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-  }
-
-  .button--icon:hover {
-    background-color: transparent;
-  }
-
-  .medium-zoom-overlay {
-    background-image: linear-gradient(
-      to bottom,
-      hsla(var(--primary), 0.5),
-      hsla(var(--primary), 0.25)
-    ) !important;
-  }
-
-  .medium-zoom-overlay,
-  .medium-zoom-image--opened {
-    z-index: 1000;
+		display: grid;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
   header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    grid-column: 1 / -1;
     position: sticky;
-    top: 2rem;
-    z-index: 999;
+    top: 0;
+    padding: 2rem;
   }
 
-  header .container {
-    display: flex;
-    gap: 4rem;
+  a {
+    display: inline-flex;
+  }
+
+  a[aria-disabled="true"] {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+  a.with-icon {
     align-items: center;
+    justify-content: space-between;
   }
 
-  header nav {
-    display: flex;
-    gap: 2rem;
-  }
+  .amount {
+		font-size: var(--font-sm);
+		margin-left: 0.25rem;
+		vertical-align: super;
+	}
 
-  header nav .nav-link {
-    position: relative;
-    color: hsla(var(--primary), 0.5);
-    transition: color var(--transition-duration);
-  }
+	.table {
+		grid-column: 1 / -1;
+		display: grid;
+		grid-template-columns: subgrid;
+    column-gap: 1rem;
+	}
 
-  header nav .nav-link.nav-link--active {
-    color: hsl(var(--primary));
-  }
+	.table-header {
+		color: hsla(var(--primary), 0.75);
+		font-size: var(--font-sm);
+	}
 
-  header nav .nav-link--active::before {
-    --size: 0.25rem;
-    content: "";
-    width: var(--size);
-    height: var(--size);
-    background-color: hsl(var(--primary));
-    border-radius: 999px;
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) scale(0);
-    transition: transform var(--transition-duration);
-  }
-
-  header nav:hover .nav-link {
-    color: hsla(var(--primary), 0.5);
-  }
-
-  header nav:hover .nav-link--active::before {
-    transform: translateX(-50%) scale(1);
-  }
-
-  header nav .nav-link:hover {
-    color: hsl(var(--primary));
-  }
-
-  header nav .nav-link:has(+ .nav-link:hover),
-  header nav .nav-link:hover + .nav-link {
-    color: hsla(var(--primary), 0.75);
-  }
-
-  header nav .nav-link:has(+ .nav-link + .nav-link:hover),
-  header nav .nav-link:hover + .nav-link + .nav-link {
-    color: hsla(var(--primary), 0.5);
-  }
-
-  #menu-button {
-    display: none;
-  }
-
-  #toggle-mode-button .moon {
-    display: block;
-  }
-
-  #toggle-mode-button .sun {
-    display: none;
-  }
-
-  [data-theme="dark"] #toggle-mode-button .moon {
-    display: none;
-  }
-
-  [data-theme="dark"] #toggle-mode-button .sun {
-    display: block;
-  }
-
-  #toggle-mode-button:hover {
-    transform: scale(1.1);
-  }
-
-  #toggle-mode-button:active {
-    transform: scale(0.9);
-  }
-
-  #toggle-mode-button .happy,
-  #toggle-mode-button:hover .sad,
-  #toggle-mode-button:hover:active .happy {
-    opacity: 0;
-  }
-
-  #toggle-mode-button:hover .happy,
-  #toggle-mode-button:active .sad {
-    opacity: 1;
-  }
-
-  @media (max-width: 1024px) {
-    #menu-button {
-      display: inline-flex;
-    }
-
-    #menu-button::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      background-image: linear-gradient(
-        to bottom,
-        hsla(var(--primary), 0.5),
-        transparent
-      );
-      transition: opacity var(--transition-duration);
-      z-index: 1;
-    }
-
-    [data-menu-open="true"] #menu-button::before {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    header .container {
-      gap: 2rem;
-    }
-
-    header nav {
-      position: fixed;
-      left: 0;
-      width: 100%;
-      top: 100%;
-      background-color: hsl(var(--bg));
-      flex-direction: column;
-      gap: 0;
-      border-top-left-radius: 2rem;
-      border-top-right-radius: 2rem;
-      transition: transform var(--transition-duration);
-      z-index: 2;
-    }
-
-    [data-menu-open="true"] header nav {
-      transform: translateY(-100%);
-    }
-
-    header nav .nav-link {
-      padding: 2rem;
-    }
-
-    header nav .nav-link:nth-child(n + 2) {
-      border-top: 1px solid var(--muted);
-    }
-
-    header nav .nav-link--active::before {
-      display: none;
-    }
-  }
+	.table-row {
+		display: grid;
+		grid-template-columns: subgrid;
+		grid-column: 1 / -1;
+		border-bottom: 1px solid hsla(var(--primary), 0.25);
+		padding-block: 1rem;
+		align-items: center;
+	}
 </style>
-
-<script is:inline>
-  const toggleModeButton = document.getElementById("toggle-mode-button");
-
-  // Initialize dark mode
-  const isDarkMode = getIsDarkMode();
-  setMode(isDarkMode);
-
-  // Add event listener
-  toggleModeButton.addEventListener("click", handleToggleModeClick);
-
-  function getIsDarkMode() {
-    const storedMode = localStorage.getItem("isDarkMode");
-    if (storedMode === null) {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-    return storedMode === "true";
-  }
-
-  function setMode(isDarkMode) {
-    document.documentElement.classList.toggle('dark', isDarkMode);
-    localStorage.setItem("isDarkMode", isDarkMode);
-  }
-
-  function handleToggleModeClick() {
-    const currentMode = getIsDarkMode();
-    setMode(!currentMode);
-  }
-</script>
-
-<script>
-  // start canvas
-  const canvas = document.createElement("canvas");
-  canvas.style.position = "fixed";
-  canvas.style.inset = '0';
-  canvas.style.pointerEvents = "none";
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext("2d")!;
-
-  let isDrawing = false;
-  let lastX = 0;
-  let lastY = 0;
-  let points: {x: number, y: number}[] = [];
-
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
-  document.addEventListener("mousedown", handleMouseDown);
-  document.addEventListener("mousemove", handleMouseMove);
-  document.addEventListener("mouseup", stopDrawing);
-  document.addEventListener("mouseleave", stopDrawing);
-
-  function handleMouseDown(e: any) {
-    isDrawing = true;
-    [lastX, lastY] = getMousePos(e);
-    points = [];
-    points.push({ x: lastX, y: lastY });
-  }
-
-  function handleMouseMove(e: any) {
-    if (!isDrawing) return;
-
-    const [x, y] = getMousePos(e);
-    points.push({ x, y });
-
-    if (points.length > 3) {
-      const lastTwoPoints = points.slice(-2);
-      const controlPoint = lastTwoPoints[0];
-      const endPoint = {
-        x: (lastTwoPoints[0].x + lastTwoPoints[1].x) / 2,
-        y: (lastTwoPoints[0].y + lastTwoPoints[1].y) / 2,
-      };
-
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.quadraticCurveTo(
-        controlPoint.x,
-        controlPoint.y,
-        endPoint.x,
-        endPoint.y
-      );
-      ctx.strokeStyle = `hsl(${getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--primary")})`;
-      ctx.lineWidth = 1;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.stroke();
-
-      [lastX, lastY] = [endPoint.x, endPoint.y];
-    }
-  }
-
-  function stopDrawing() {
-    isDrawing = false;
-    points = [];
-  }
-
-  function getMousePos(e: any) {
-    const rect = canvas.getBoundingClientRect();
-    return [e.clientX - rect.left, e.clientY - rect.top];
-  }
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  // end canvas
-
-  // start header
-  const menuButton = document.getElementById("menu-button");
-
-  if(menuButton) {
-    menuButton.addEventListener("click", toggleMenu);
-  }
-
-  function toggleMenu() {
-    const currentMenuOpen = document.documentElement.dataset.menuOpen === "true";
-    const newMenuOpen = !currentMenuOpen;
-    document.documentElement.dataset.menuOpen = newMenuOpen.toString();
-  }
-  // end header
-</script>

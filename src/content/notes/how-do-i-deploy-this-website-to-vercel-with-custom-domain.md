@@ -1,7 +1,7 @@
 ---
 title: How do I deploy this website to Vercel with a custom domain?
 image: /images/home-page.png
-date: 25 August 2024
+date: 25.8.2024
 ---
 
 Create GitHub repository and push code to the repository.
