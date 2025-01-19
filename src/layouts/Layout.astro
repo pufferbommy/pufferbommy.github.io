@@ -1,109 +1,60 @@
 ---
-import "the-new-css-reset/css/reset.css";
-
-interface Props {
-	title: string;
-}
-
-const { title } = Astro.props;
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta
-		name="description"
-		content="Hi, I'm Panyawat (Bom) Kaedpol. A frontend developer in Bangkok, Thailand. Crafting user-friendly, interactive web experiences."
-    />
-    <meta name="author" content="Panyawat Kaedpol" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+		<meta name="generator" content={Astro.generator} />
+		<title>Pufferbommy Page</title>
+		<link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+		<link rel="stylesheet" href="/normalize.css">
+		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 	</head>
 	<body>
-    <header>
-      <a href="/">
-        Pufferbommy
-      </a>
-    </header>
-    <slot />
+		<Header />
+		<slot />
+		<Footer />
 	</body>
 </html>
+
 <style is:global>
-  :root {
-    --font-scale: 1.5;
-    --font-base: 1.5rem;
-    --font-sm: calc(var(--font-base) / var(--font-scale));
-    --font-lg: calc(var(--font-base) * var(--font-scale));
-    --font-xl: calc(var(--font-lg) * var(--font-scale));
-    --font-2xl: calc(var(--font-xl) * var(--font-scale));
-    --bg: 108, 40%, 1%;
-    --primary: 108, 40%, 93%;
-  }
-
-  body {
-    min-height: 100svh;
-    margin: 0;
-    background-color: hsl(var(--bg));
-    font-size: var(--font-base);
-    color: hsl(var(--primary));
-    font-family: 'Poppins', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-		display: grid;
-		grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
-  header {
-    grid-column: 1 / -1;
-    position: sticky;
-    top: 0;
-    padding: 2rem;
-  }
-
-  a {
-    display: inline-flex;
-  }
-
-  a[aria-disabled="true"] {
-		opacity: 0.5;
-		pointer-events: none;
+	body {
+		background-color: hsl(270, 10%, 4%);
+		color: #f1f1f1;
 	}
-
-  a.with-icon {
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .amount {
-		font-size: var(--font-sm);
-		margin-left: 0.25rem;
-		vertical-align: super;
+	.container {
+		max-width: 1680px;
+		margin-inline: auto;
 	}
-
-	.table {
-		grid-column: 1 / -1;
-		display: grid;
-		grid-template-columns: subgrid;
-    column-gap: 1rem;
+	.gradient-text {
+		background: linear-gradient(to right, #9b8aff 25%, #bf60ff 50%, #ef38b5 75%, #f94040 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: gradient 10s infinite;
+		background-size: 400% auto;
+		display: inline-block;
 	}
-
-	.table-header {
-		color: hsla(var(--primary), 0.75);
-		font-size: var(--font-sm);
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
 	}
-
-	.table-row {
-		display: grid;
-		grid-template-columns: subgrid;
-		grid-column: 1 / -1;
-		border-bottom: 1px solid hsla(var(--primary), 0.25);
-		padding-block: 1rem;
-		align-items: center;
+	a, a:hover {
+		color: inherit;
+	}
+	h1, h2, p {
+		margin-bottom: 0;
+		font-weight: normal;
 	}
 </style>

@@ -1,376 +1,146 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 
-const projects = [
-  {
-    image: "/images/projects/graduate-project.jpg",
-    name: "Graduate Project",
-    type: "Work",
-		repo: "https://github.com/unknowguy2001/final-project"
-  },
-  {
-    image: "/images/projects/cat-maps.jpg",
-    name: "Cat Maps",
-    type: "Personal",
-		repo: "https://github.com/pufferbommy/cat-maps"
-  },
-  {
-    image: "/images/projects/nichakarn-port.jpg",
-    name: "Nichakarn Soontornsuteewong Portfolio",
-    type: "Work",
-		repo: "https://github.com/Wisitt/portmean"
-  },
-  {
-    image: "/images/projects/quarantine-checker.jpg",
-    name: "Quarantine Checker",
-    type: "Personal",
-		repo: "https://github.com/pufferbommy/covid19-quarantine-tracker",
-		link: 'https://quarantine-checker.netlify.app/'
-  },
-]
-const notes: {slug: string, data: {title: string, date: string}}[] = await getCollection("notes");
+import Layout from '../layouts/Layout.astro';
+import catMapsImage from '../assets/cat-maps.jpg';
+import graduateProjectImage from '../assets/graduate-project.jpg';
+import nichakarnPortImage from '../assets/nichakarn-port.jpg';
+import quarantineCheckerImage from '../assets/quarantine-checker.jpg';
 ---
 
-<Layout title="Pufferbommy">
-	<main>
-		<section id="hero-section">
-			<div class="rabbit">
-				<div class="ears">
-					<div class="ear left-ear" />
-					<div class="ear right-ear" />
+<Layout>
+	<div class="main-wrapper">
+		<main class="container">
+			<section class="hero-section">
+				<p class="gradient-text">Hello,</p>
+				<h1>
+					I'm Panyawat Kaedpol - a Frontend developer
+					<br>
+					Crafting user-friendly, interactive web experiences.
+				</h1>
+				<div class="buttons">
+					<a class="nes-btn" href="til">TIL</a>
+					<a class="nes-btn" href="#contact">CONTACT</a>
 				</div>
-				<div class="face">
-					<div class="eyes">
-						<div class="eye left-eye" />
-						<div class="eye right-eye" />
+			</section>
+			<section>
+				<div class="projects">
+					<div class="project nes-container is-dark is-rounded">
+						<h2>Cat Maps</h2>
+						<Image src={catMapsImage} alt="cat maps" />
 					</div>
-				</div>
-				<div class="body-and-tail">
-					<div class="body" />
-					<div class="tail" />
-				</div>
-				<div class="foots">
-					<div class="foot left-foot" />
-					<div class="foot right-foot" />
-				</div>
-			</div>
-			<h1 id="intro">
-				<div class="line">Hi, I'm Panyawat (Bom) Kaedpol</div>
-				<div class="line">A frontend developer in Bangkok, Thailand</div>
-				<div class="line">Crafting user-friendly, interactive web experiences</div>
-			</h1>
-		</section>
-		<section id="projects-section">
-			<h2>Projects<sup class="amount">({projects.length})</sup></h2>
-			<div class="table">
-				<div class="table-row table-header">
-					<div>/ IMAGE</div>
-					<div>/ NAME</div>
-					<div>/ TYPE</div>
-					<div>/ REPO</div>
-					<div>/ LINK</div>
-				</div>
-				{projects.map(({image, name, type, repo, link}) => (
-					<div class="table-row">
-						<img src={image} alt={name} />
-						<h3>{name}</h3>
-						<h4>{type}</h4>
-						<a href={repo} target="_blank">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-						</a>
-						<a aria-disabled={!link ? "true" : "false"} href={link} target="_blank">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-up-right"><path d="M13 5H19V11"/><path d="M19 5L5 19"/></svg>
-						</a>
-        	</div>
-				))}
-			</div>
-		</section>
-		<section id="notes-section">
-			<h2>Notes<sup class="amount">({notes.length})</sup></h2>
-			<div class="table">
-				<div class="table-row table-header">
-					<div>/ DATE</div>
-					<div>/ NAME</div>
-				</div>
-				{notes.map(({slug, data: {title, date}}) => (
-					<a class="table-row" href={`/notes/${slug}`}>
-						<span>
-							{date}
-						</span>
-						<span>
-							{title}
-						</span>
+					<div class="project nes-container is-dark is-rounded">
+						<h2>Graduate Project</h2>
+						<Image src={graduateProjectImage} alt="graduate project" />
+					</div>
+					<div class="project nes-container is-dark is-rounded">
+						<h2>Nichakarn Port</h2>
+						<Image src={nichakarnPortImage} alt="nichakarn-port" />
+					</div>
+					<div class="project nes-container is-dark is-rounded">
+						<h2>Quarantine Checker</h2>
+						<Image src={quarantineCheckerImage} alt="quarantine checker" />
+					</div>
+					<a href="projects" class="nes-container is-dark is-rounded view-all">
+						VIEW ALL PROJECTS
+						<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+							<path d="M8 5v2h2V5H8zm4 4V7h-2v2h2zm2 2V9h-2v2h2zm0 2h2v-2h-2v2zm-2 2v-2h2v2h-2zm0 0h-2v2h2v-2zm-4 4v-2h2v2H8z" fill="currentColor"/>
+						</svg>
 					</a>
-				))}
-			</div>
-		</section>
-		<section id="contact-section">
-			<h2>Contact<sup class="amount">({4})</sup></h2>
-			<div class="contact-list">
-				<div class="contact-list-item">
-					<div class="table">
-						<div class="table-row table-header">
-							<div>/ GITHUB</div>
-						</div>
-						<div class="table-row">
-							<a class="with-icon" target="_blank" href="https://github.com/pufferbommy">
-								pufferbommy
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-up-right"><path d="M13 5H19V11"/><path d="M19 5L5 19"/></svg>
-							</a>
-						</div>
-					</div>						
 				</div>
-				<div class="contact-list-item">
-					<div class="table">
-						<div class="table-row table-header">
-							<div>/ LINKEDIN</div>
-						</div>
-						<div class="table-row">
-							<a class="with-icon" target="_blank" href="https://www.linkedin.com/in/panyawat-k/">
-								panyawat kaedpol
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-up-right"><path d="M13 5H19V11"/><path d="M19 5L5 19"/></svg>
-							</a>
-						</div>
-					</div>						
-				</div>
-				<div class="contact-list-item">
-					<div class="table">
-						<div class="table-row table-header">
-							<div>/ EMAIL</div>
-						</div>
-						<div class="table-row">
-							<a class="with-icon" target="_blank" href="mailto:panyawat.kaedpol@gmail.com">
-								panyawat.kaedpol@gmail.com
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-up-right"><path d="M13 5H19V11"/><path d="M19 5L5 19"/></svg>
-							</a>
-						</div>
-					</div>						
-				</div>
-			</div>
-		</section>
-	</main>
+			</section>
+		</main>	
+	</div>	
 </Layout>
 
 <style>
+	.main-wrapper {
+		padding-inline: 2rem;
+		position: relative;
+		z-index: 1;
+		background-color: inherit;
+		border-bottom-left-radius: 2rem;
+		border-bottom-right-radius: 2rem;
+	}
+
 	main {
-		display: grid;
-		grid-template-columns: subgrid;
-		grid-column: 1 / -1;
+		min-height: calc(100dvh - 72px);
 	}
 
-	section {
-		min-height: 50vh;
-		padding: 2rem;
-		grid-column: 1 / -1;
-		grid-template-columns: subgrid;
-		display: grid;
-		align-content: start;
-	}
-
-	section h2 {
-		font-size: var(--font-2xl);
-		grid-column: 1 / -1;
-		margin-bottom: 1rem;
-	}
-
-	#hero-section {
-		height: calc(100svh - 99px);
-		position: relative;
-		align-content: end;
-	}
-
-	#intro {
-		grid-column: 1 / -1;
-		font-size: clamp(var(--font-lg), 3vw, var(--font-xl));
-	}
-
-	#projects-section .table-row > *:nth-child(2) {
-		grid-column: 2 / 10;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	#projects-section .table-row > *:nth-child(3) {
-		font-size: var(--font-sm);
-	}
-
-	#notes-section .table-row > *:nth-child(1) {
-		font-size: var(--font-sm);
-	}
-
-	#notes-section .table-row > *:nth-child(2) {
-		grid-column: 2 / -1;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.contact-list {
-		display: grid;
-		grid-template-columns: subgrid;
-		grid-column: 1 / -1;
-		gap: 1rem;
-	}
-
-	.contact-list-item {
-		grid-column: span 6;
-	}
-
-	.rabbit {
-		position: absolute; 
-		left: 50%;
-		transform: translateX(-50%); 
-		top: 0;
-	}
-
-	.ears {
+	.hero-section {
 		display: flex;
+		flex-direction: column;
 		gap: 2rem;
-		margin-left: -2rem;
-		margin-bottom: -2rem;
+		padding-block: 4rem;
+		align-items: start;
+
+		p {
+			font-size: 4rem;
+		}
+
+		h1 {
+			font-size: 2rem;
+			font-weight: normal;
+			line-height: 2;
+		}
+
+		.buttons {
+			display: flex;
+			gap: 1rem;
+		}
 	}
 
-	.ear {
-		width: 60px;
-		height: 250px;
-		border: 1px solid hsl(var(--primary));
-		border-radius: 50%;
-	}
-	
-	.left-ear {
-		position: relative;
-		transform: rotate(-30deg);
-		bottom: -1rem;
-	}
-
-	.right-ear {
-		transform: rotate(-15deg);
-	}
-
-	.face {
-		width: 250px;
-		height: 150px;
-		border: 1px solid hsl(var(--primary));
-		border-radius: 50%;
-		display: flex;
-		justify-content: center;
-	}
-
-	.eyes {
-		display: flex;
+	.projects {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 1rem;
-		margin-top: 2rem;
-		margin-right: 2rem;
-	}
+		padding-bottom: 4rem;
 
-	.eye {
-		width: 25px;
-		height: 25px;
-		border: 1px solid hsl(var(--primary));
-		border-radius: 50%;
-	}
+		.project {
+			position: relative;
+			aspect-ratio: 1 / 1;
 
-	.body-and-tail {
-		display: flex;
-	}
+			& > img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
 
-	.body {
-		margin-top: -3rem;
-		margin-left: 6rem;
-		width: 250px;
-		height: 150px;
-		border: 1px solid hsl(var(--primary));
-		border-radius: 50%;;
-	}
+			&:hover h2 {
+				opacity: 1;
+			}
 
-	.foots {
-		display: flex;
-		gap: 1rem;
-		margin-top: -2rem;
-	}
+			&:hover:before {
+				opacity: 1;
+			}
 
-	.foot {
-		border: 1px solid hsl(var(--primary));
-		border-radius: 50%;
-	}
+			h2 {
+				font-weight: normal;
+				opacity: 0;
+				bottom: 0;
+				left: 0;
+				padding: 2rem;
+				font-size: 2rem;
+				transition: opacity 250ms;
+				margin-bottom: 0;
+				position: absolute;
+			}
 
-	.left-foot {
-		width: 200px;
-		height: 50px;
-		transform: rotate(5deg);
-	}
+			&:before {
+				content: '';
+				position: absolute;
+				inset: 0.5rem;
+				background: linear-gradient(to bottom, hsla(270, 10%, 4%, 0) 0%, hsla(270, 10%, 4%, 0.75) 100%);
+				opacity: 0;
+				transition: opacity 250ms;
+			}
+		}
 
-	.right-foot {
-		width: 120px;
-		height: 50px;
-		transform: rotate(-20deg);
-	}
-
-	.tail {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		margin-left: -1rem;
-		border: 1px solid hsl(var(--primary));
+		.view-all {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5rem;
+		}
 	}
 </style>
-
-<script>
-	import splt from 'spltjs';
-	import { gsap } from "gsap";
-
-	const tl = gsap.timeline();
-	animateIntro();
-	const {splitRabbit, joinRabbit} = setupRabbitAnimation(['.face',  '.left-eye', '.right-eye', '.body', '.tail', '.left-ear', '.right-ear', '.left-foot', '.right-foot'])
-	splitRabbit()
-	tl.call(joinRabbit)
-	
-	function animateIntro() {
-		splt({ target: ".line" })
-		document.querySelectorAll('#intro > .line').forEach((splt, i) => {
-			tl.from(splt.querySelectorAll(".char"), {
-				y: 'random(0, 50)',
-				rotate: 'random(-50, 50)',
-				delay: i * 0.25,
-				stagger: 0.025,
-				opacity: 0,
-			}, '<')
-		})
-	}
-
-	function setupRabbitAnimation(rabbitPartSelectors: string[]) {
-		const initialRotatedParts: { [key: string]: number } = {}
-
-		function splitRabbit() {
-			rabbitPartSelectors.forEach((selector) => {
-				const rotation = gsap.getProperty(selector, 'rotate') as number;
-				if (rotation) initialRotatedParts[selector] = Math.round(rotation);
-				gsap.fromTo(selector, {
-					opacity: 0,
-					scale: 0,
-				}, {
-					opacity: 1,
-					scale: 2,
-					xPercent: gsap.utils.random(-100, 100),
-					yPercent: gsap.utils.random(-100, 100),
-					rotate: gsap.utils.random(-50, 50),
-				});
-			});
-		}
-
-		const joinRabbit = () => {
-			rabbitPartSelectors.forEach((selector) => {
-				gsap.to(selector, {
-					xPercent: 0,
-					yPercent: 0,
-					rotate: initialRotatedParts[selector] || 0,
-					scale: 1
-				});
-			});
-		}
-
-		return { splitRabbit, joinRabbit };
-	}
-</script>

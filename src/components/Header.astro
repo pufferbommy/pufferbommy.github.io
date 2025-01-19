@@ -1,0 +1,35 @@
+<div class="header-wrapper">
+  <header class="header container">
+    <a href="/" class="username">pufferbommy</a>
+    <nav class="links">
+      <a href="/">/home</a>
+      <a href="/til">/til</a>
+      <a href="/projects">/projects</a>
+    </nav>
+  </header>
+</div>
+
+<style>
+  .header-wrapper {
+    padding: 1rem 2rem;
+    background-color: rgb(36, 36, 36);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+  }
+
+  .username {
+    font-size: 1.5rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 2rem;
+  }
+</style>
